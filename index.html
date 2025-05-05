@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Slot Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input, select, button { padding: 8px; margin: 5px; width: 200px; }
+        button { cursor: pointer; }
+        .result { margin-top: 20px; font-weight: bold; }
+        .flash { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Smart Delivery Slot Predictor</h2>
+    <form method="POST" action="/predict">
+        <label>Order Hour (0-23):</label><br>
+        <input type="number" name="order_hour" required><br>
+
+        <label>Current Load (0-100):</label><br>
+        <input type="number" name="current_load" required><br>
+
+        <label>Area Type:</label><br>
+        <select name="area_type">
+            <option value="0">Urban</option>
+            <option value="1">Suburban</option>
+        </select><br>
+
+        <button type="submit">Predict Slot Availability</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    {% if result %}
+        <div class="result">Result: {{ result }}</div>
+    {% endif %}
+</body>
+</html>
